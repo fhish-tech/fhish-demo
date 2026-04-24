@@ -1,0 +1,31 @@
+{
+  "name": "fhish-wasm",
+  "type": "module",
+  "collaborators": [
+    "FHISH Protocol"
+  ],
+  "description": "FHISH WASM bindings for TFHE-rs with full server-side FHE operations",
+  "version": "1.5.4",
+  "license": "BSD-3-Clause-Clear",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fhish/fhish"
+  },
+  "files": [
+    "fhish_wasm_bg.wasm",
+    "fhish_wasm.js",
+    "fhish_wasm.d.ts"
+  ],
+  "main": "fhish_wasm.js",
+  "types": "fhish_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ],
+  "keywords": [
+    "fhe",
+    "tfhe",
+    "homomorphic",
+    "encryption",
+    "wasm"
+  ]
+}
