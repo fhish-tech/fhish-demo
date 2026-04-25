@@ -11,7 +11,7 @@ export default function Home() {
             <div className="w-8 h-8 bg-primary flex items-center justify-center rounded-sm rotate-45 group-hover:rotate-90 transition-transform duration-500 shadow-[0_0_15px_rgba(173,70,255,0.5)]">
               <Zap size={18} className="-rotate-45 group-hover:-rotate-90 transition-transform duration-500 text-white fill-current" />
             </div>
-            <span className="text-xl font-bold tracking-tighter uppercase italic text-glow tracking-[0.2em]">Fhish</span>
+            <span className="text-xl font-bold tracking-tighter uppercase text-glow tracking-[0.2em]">Fhish</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -25,7 +25,7 @@ export default function Home() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-6 animate-pulse-slow">
             <Shield size={12} /> Privacy Layer for Initia
           </div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic mb-6 leading-none">
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-6 leading-none">
             Private <span className="text-primary text-glow">Voting</span> <br/>
             On MiniEVM
           </h1>
@@ -62,7 +62,7 @@ function FeatureCard({ icon, title, desc }: { icon: React.ReactNode, title: stri
       <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center text-primary mb-6">
         {icon}
       </div>
-      <h3 className="text-lg font-bold uppercase italic tracking-tighter mb-2">{title}</h3>
+      <h3 className="text-lg font-bold uppercase tracking-tighter mb-2">{title}</h3>
       <p className="text-sm text-white/40 leading-relaxed">{desc}</p>
     </div>
   )
