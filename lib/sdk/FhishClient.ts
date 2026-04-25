@@ -129,7 +129,8 @@ export class FhishClient {
       throw new Error("FhishClient not initialized");
     }
 
-    fheEvent(`Encrypting vote: ${support ? "YES" : "NO"}`, { value: support ? 1 : 0 });
+    const voteValue = support ? 1 : 0;
+    fheEvent(`Encrypting vote: ${support ? "YES" : "NO"}`, { value: voteValue });
     
     try {
       fheEvent("Calling publicKey.encrypt (SHORTINT)...");
