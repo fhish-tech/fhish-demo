@@ -1,7 +1,9 @@
 import { defineChain } from "viem";
 
 const isProd = process.env.NODE_ENV === 'production';
-const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || (isProd ? "/rpc-proxy" : "http://161.35.63.119:8545");
+
+// Force the proxy in production to ensure viem/wagmi don't fallback to localhost
+const rpcUrl = isProd ? "/rpc-proxy" : (process.env.NEXT_PUBLIC_RPC_URL || "http://161.35.63.119:8545");
 
 export const fhishLocalChain: any = {
   chain_id: "fhish-1",
