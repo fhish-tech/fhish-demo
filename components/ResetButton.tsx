@@ -57,9 +57,9 @@ export function ResetButton() {
     <button
       onClick={handleReset}
       disabled={loading}
-      className="mt-4 text-xs text-gray-600 hover:text-rose-400 transition-colors uppercase tracking-widest font-bold"
+      className="px-4 py-2 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-all text-xs uppercase tracking-widest font-black"
     >
-      {loading ? "Resetting..." : "Reset Demo State"}
+      {loading ? "Resetting..." : "Reset Demo"}
     </button>
   );
 }
