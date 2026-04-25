@@ -2,8 +2,14 @@ import { defineChain } from "viem";
 
 const isProd = process.env.NODE_ENV === 'production';
 
-// Force the proxy in production to ensure viem/wagmi don't fallback to localhost
-const rpcUrl = isProd ? "/rpc-proxy" : (process.env.NEXT_PUBLIC_RPC_URL || "http://161.35.63.119:8545");
+// Helper to get absolute base URL for proxies
+const getBaseUrl = () => {
+  if (typeof window !== 'undefined') return window.location.origin;
+  return "";
+};
+
+// Force the proxy in production with absolute URLs for Wallet compatibility
+const rpcUrl = isProd ? `${getBaseUrl()}/rpc-proxy` : (process.env.NEXT_PUBLIC_RPC_URL || "http://161.35.63.119:8545");
 
 export const fhishLocalChain: any = {
   chain_id: "fhish-1",
