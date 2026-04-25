@@ -1,19 +1,19 @@
-import { Inter } from 'next/font/google';
+import { DM_Sans } from 'next/font/google';
 import './globals.css';
 import { ClientProviders } from './ClientProviders';
 import { DebugPanel } from '../components/DebugPanel';
 
-const inter = Inter({ subsets: ['latin'] });
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' });
 
 export const metadata = {
-  title: 'fhish DAO',
-  description: 'Private Voting on Ethereum',
+  title: 'Fhish | Private FHE Layer',
+  description: 'Private Voting on Initia MiniEVM',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="bg-black text-white">
-      <body className={`${inter.className} min-h-screen container mx-auto p-4`}>
+      <body className={`${dmSans.variable} min-h-screen`}>
         <ClientProviders>
           {children}
           <DebugPanel />

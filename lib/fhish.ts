@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 import { FhishClient } from "./sdk/FhishClient";
 
-const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || "https://ethereum-sepolia.publicnode.com";
-const gatewayUrl = process.env.NEXT_PUBLIC_FHISH_GATEWAY_URL || "http://localhost:8080";
+const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || "http://localhost:8545";
+const gatewayUrl = process.env.NEXT_PUBLIC_FHISH_GATEWAY_URL || "http://localhost:3000";
 
 console.log("[fhish.ts] Env — RPC:", rpcUrl);
 console.log("[fhish.ts] Env — Gateway:", gatewayUrl);

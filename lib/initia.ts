@@ -1,0 +1,48 @@
+import { defineChain } from "viem";
+
+export const fhishLocalChain: any = {
+  chain_id: "fhish-1",
+  chain_name: "fhish",
+  bech32_prefix: "init",
+  pretty_name: "Fhish Local MiniEVM",
+  network_type: "testnet",
+  status: "live",
+  apis: {
+    rpc: [{ address: "http://localhost:26657" }],
+    rest: [{ address: "http://localhost:1317" }],
+    indexer: [{ address: "http://localhost:1317" }], 
+    "json-rpc": [{ address: "http://localhost:8545" }]
+  },
+  fees: {
+    fee_tokens: [{
+      denom: "uinit",
+      fixed_min_gas_price: 0,
+      low_gas_price: 0,
+      average_gas_price: 0,
+      high_gas_price: 0
+    }]
+  },
+  staking: { staking_tokens: [{ denom: "uinit" }] },
+  native_assets: [{
+    denom: "uinit",
+    name: "INIT",
+    symbol: "INIT",
+    decimals: 18
+  }],
+  metadata: {
+    is_l1: false,
+    minitia: {
+      type: "minievm"
+    }
+  }
+};
+
+export const fhishMiniEVM = defineChain({
+  id: 12345, // Placeholder, will be detected by InterwovenKit
+  name: 'Fhish MiniEVM',
+  nativeCurrency: { name: 'INIT', symbol: 'INIT', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['http://localhost:8545'] },
+    public: { http: ['http://localhost:8545'] },
+  },
+});

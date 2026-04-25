@@ -9,7 +9,7 @@ import init, {
 let wasmLoaded: any = null;
 let wasmInitPromise: Promise<any> | null = null;
 
-const DEFAULT_GATEWAY_URL = "http://localhost:8080";
+const DEFAULT_GATEWAY_URL = "http://localhost:3000";
 
 function log(prefix: string, ...args: any[]) {
   console.log(`[FhishSDK] ${prefix}`, ...args);
