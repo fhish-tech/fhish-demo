@@ -170,7 +170,7 @@ export class FhishClient {
     }
 
     const result = await response.json() as VoteResult;
-    netEvent("Vote accepted by gateway", result);
+    netEvent("Vote accepted by gateway", { ...result, totalYes: "[ENCRYPTED]", totalNo: "[ENCRYPTED]" });
     
     log("Verifying local decryption...");
     try {
@@ -193,7 +193,7 @@ export class FhishClient {
     }
 
     const result = await response.json();
-    log("Tally status:", result);
+    log("Tally status received", { ...result, yesVotes: "[ENCRYPTED]", noVotes: "[ENCRYPTED]" });
     return result;
   }
 

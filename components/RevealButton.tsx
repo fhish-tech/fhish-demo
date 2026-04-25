@@ -28,7 +28,7 @@ export function RevealButton({ proposalId }: { proposalId: number }) {
         const client = createFhishClient(null as any);
         const status = await client.getTallyStatus();
         setTallyStatus(status);
-        log.info("Tally status:", status);
+        log.info("Tally status refreshed", { ...status, yesVotes: "[ENCRYPTED]", noVotes: "[ENCRYPTED]" });
       } catch (e: any) {
         log.error("Failed to fetch tally status:", e.message);
       }
