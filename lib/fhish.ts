@@ -3,8 +3,10 @@ import { FhishClient } from "./sdk/FhishClient";
 import { fheLog } from "./logger";
 
 const isProd = process.env.NODE_ENV === 'production';
-const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || (isProd ? "/rpc-proxy" : "http://161.35.63.119:8545");
-const gatewayUrl = process.env.NEXT_PUBLIC_FHISH_GATEWAY_URL || (isProd ? "/gateway-proxy" : "http://161.35.63.119:3000");
+
+// Force proxy in production to bypass Mixed Content blocks, otherwise use ENV or VPS IP
+const rpcUrl = isProd ? "/rpc-proxy" : (process.env.NEXT_PUBLIC_RPC_URL || "http://161.35.63.119:8545");
+const gatewayUrl = isProd ? "/gateway-proxy" : (process.env.NEXT_PUBLIC_FHISH_GATEWAY_URL || "http://161.35.63.119:3000");
 
 fheLog('info', 'Fhish Library Initialized', { rpcUrl, gatewayUrl, isProd });
 
