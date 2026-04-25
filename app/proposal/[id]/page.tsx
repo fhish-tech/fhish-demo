@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useAccount, useReadContract } from "wagmi";
 import { VOTING_ADDRESS, PRIVATE_VOTING_ABI, GATEWAY_ADDRESS } from "../../../lib/contracts";
 import { ConnectWallet } from "../../../components/ConnectWallet";
+import { ResetButton } from "../../../components/ResetButton";
 
 // Dynamically import buttons that use WASM to disable SSR for them
 const VoteButton = dynamic(() => import("../../../components/VoteButton").then(mod => mod.VoteButton), { ssr: false });
@@ -188,13 +189,16 @@ export default function ProposalDetail() {
           )}
         </div>
 
-        <div className="mt-8 pt-6 border-t border-gray-800">
-          <h4 className="text-gray-600 text-xs uppercase tracking-widest mb-2">How it works</h4>
-          <div className="text-gray-500 text-sm space-y-1">
-            <p>1. Your vote is encrypted locally using FHE (Fully Homomorphic Encryption)</p>
-            <p>2. Encrypted votes are tallied on-chain without revealing individual choices</p>
-            <p>3. The gateway decrypts the final tally without exposing your vote</p>
+        <div className="mt-8 pt-6 border-t border-gray-800 flex justify-between items-center">
+          <div>
+            <h4 className="text-gray-600 text-xs uppercase tracking-widest mb-2">How it works</h4>
+            <div className="text-gray-500 text-sm space-y-1">
+              <p>1. Your vote is encrypted locally using FHE (Fully Homomorphic Encryption)</p>
+              <p>2. Encrypted votes are tallied on-chain without revealing individual choices</p>
+              <p>3. The gateway decrypts the final tally without exposing your vote</p>
+            </div>
           </div>
+          <ResetButton />
         </div>
       </div>
 

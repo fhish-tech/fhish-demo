@@ -124,4 +124,11 @@ export const PRIVATE_VOTING_ABI = [
     outputs: [],
     stateMutability: "nonpayable",
   },
+  {
+    type: "function",
+    name: "reset",
+    inputs: [],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
 ] as const;
