@@ -1,5 +1,8 @@
 import { defineChain } from "viem";
 
+const isProd = process.env.NODE_ENV === 'production';
+const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || (isProd ? "/rpc-proxy" : "http://161.35.63.119:8545");
+
 export const fhishLocalChain: any = {
   chain_id: "fhish-1",
   chain_name: "fhish",
@@ -8,10 +11,10 @@ export const fhishLocalChain: any = {
   network_type: "testnet",
   status: "live",
   apis: {
-    rpc: [{ address: "http://localhost:26657" }],
-    rest: [{ address: "http://localhost:1317" }],
-    indexer: [{ address: "http://localhost:1317" }], 
-    "json-rpc": [{ address: "http://localhost:8545" }]
+    rpc: [{ address: isProd ? "/rpc-proxy" : "http://161.35.63.119:26657" }],
+    rest: [{ address: isProd ? "/rpc-proxy" : "http://161.35.63.119:1317" }],
+    indexer: [{ address: isProd ? "/rpc-proxy" : "http://161.35.63.119:1317" }], 
+    "json-rpc": [{ address: rpcUrl }]
   },
   fees: {
     fee_tokens: [{
@@ -42,7 +45,7 @@ export const fhishMiniEVM = defineChain({
   name: 'Fhish MiniEVM',
   nativeCurrency: { name: 'INIT', symbol: 'INIT', decimals: 6 },
   rpcUrls: {
-    default: { http: ['http://localhost:8545'] },
-    public: { http: ['http://localhost:8545'] },
+    default: { http: [rpcUrl] },
+    public: { http: [rpcUrl] },
   },
 });
