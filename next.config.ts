@@ -15,6 +15,18 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: "/rpc-proxy/:path*",
+        destination: "http://161.35.63.119:8545/:path*",
+      },
+      {
+        source: "/gateway-proxy/:path*",
+        destination: "http://161.35.63.119:3000/:path*",
+      },
+    ];
+  },
   async headers() {
     return [
       {
