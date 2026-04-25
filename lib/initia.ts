@@ -27,7 +27,7 @@ export const fhishLocalChain: any = {
     denom: "uinit",
     name: "INIT",
     symbol: "INIT",
-    decimals: 18
+    decimals: 6
   }],
   metadata: {
     is_l1: false,
@@ -38,9 +38,9 @@ export const fhishLocalChain: any = {
 };
 
 export const fhishMiniEVM = defineChain({
-  id: 12345, // Placeholder, will be detected by InterwovenKit
+  id: 1274840431040713,
   name: 'Fhish MiniEVM',
-  nativeCurrency: { name: 'INIT', symbol: 'INIT', decimals: 18 },
+  nativeCurrency: { name: 'INIT', symbol: 'INIT', decimals: 6 },
   rpcUrls: {
     default: { http: ['http://localhost:8545'] },
     public: { http: ['http://localhost:8545'] },

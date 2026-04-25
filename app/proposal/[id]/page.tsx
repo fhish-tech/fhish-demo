@@ -1,10 +1,14 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import dynamic from "next/dynamic";
 import { useAccount, useReadContract } from "wagmi";
 import { VOTING_ADDRESS, PRIVATE_VOTING_ABI, GATEWAY_ADDRESS } from "../../../lib/contracts";
-import { VoteButton } from "../../../components/VoteButton";
-import { RevealButton } from "../../../components/RevealButton";
 import { ConnectWallet } from "../../../components/ConnectWallet";
+
+// Dynamically import buttons that use WASM to disable SSR for them
+const VoteButton = dynamic(() => import("../../../components/VoteButton").then(mod => mod.VoteButton), { ssr: false });
+const RevealButton = dynamic(() => import("../../../components/RevealButton").then(mod => mod.RevealButton), { ssr: false });
 
 const log = {
   info: (...args: any[]) => console.log(`[ProposalPage]`, new Date().toISOString(), ...args),
@@ -12,9 +16,10 @@ const log = {
   warn: (...args: any[]) => console.warn(`[ProposalPage] WARN:`, new Date().toISOString(), ...args),
 };
 
-export default function ProposalDetail({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
-  const proposalId = parseInt(id);
+export default function ProposalDetail() {
+  const params = useParams();
+  const id = params?.id as string;
+  const proposalId = parseInt(id || "0");
   const { address, isConnected } = useAccount();
   const [mounted, setMounted] = useState(false);
 
