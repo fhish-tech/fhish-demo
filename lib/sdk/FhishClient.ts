@@ -6,13 +6,23 @@ import init, {
   FhisShortintCompactCiphertextList,
 } from "./fhish_wasm.js";
 
+import { fheLog } from "../logger";
+
 let wasmLoaded: any = null;
 let wasmInitPromise: Promise<any> | null = null;
-
 const DEFAULT_GATEWAY_URL = "http://localhost:8080";
 
 function log(prefix: string, ...args: any[]) {
-  console.log(`[FhishSDK] ${prefix}`, ...args);
+  const message = args.map(a => typeof a === "object" ? JSON.stringify(a) : String(a)).join(" ");
+  fheLog('info', `[SDK] ${prefix}: ${message}`);
+}
+
+function fheEvent(message: string, data?: any) {
+  fheLog('fhe', message, data);
+}
+
+function netEvent(message: string, data?: any) {
+  fheLog('network', message, data);
 }
 
 async function initWasmBrowser(): Promise<any> {
@@ -89,9 +99,9 @@ export class FhishClient {
     log("Initializing FhishClient...");
     const fhis = await initWasmBrowser();
     
-    log("Fetching public key from gateway...");
+    netEvent("Fetching public key from gateway...", { url: `${this.gatewayUrl}/get-public-key` });
     const publicKeyHex = await this.fetchPublicKey();
-    log("Got public key from gateway:", publicKeyHex.length, "chars");
+    netEvent("Got public key from gateway", { length: publicKeyHex.length });
     
     const publicKeyBytes = this.hexToBytes(publicKeyHex);
     const publicKey = fhis.FhisShortintCompactPublicKey.deserialize(publicKeyBytes);
@@ -119,19 +129,18 @@ export class FhishClient {
       throw new Error("FhishClient not initialized");
     }
 
-    const voteValue = support ? 1 : 0;
-    log("Encrypting vote:", support ? "YES (1)" : "NO (0)");
+    fheEvent(`Encrypting vote: ${support ? "YES" : "NO"}`, { value: support ? 1 : 0 });
     
     try {
-      log("Calling publicKey.encrypt (SHORTINT)...");
+      fheEvent("Calling publicKey.encrypt (SHORTINT)...");
       const compactCt = (this as any).publicKey.encrypt(voteValue);
-      log("Compact ciphertext created, size:", compactCt.size_bytes(), "bytes");
+      fheEvent("Compact ciphertext created", { size: compactCt.size_bytes() });
       
-      log("Calling compactCt.expand...");
+      fheEvent("Expanding compact ciphertext...");
       const ct = compactCt.expand();
       const ctBytes = ct.serialize();
       
-      log("Vote encrypted, ciphertext size:", ctBytes.length, "bytes");
+      fheEvent("Vote encrypted successfully", { bytes: ctBytes.length, hex: this.bytesToHex(ctBytes).slice(0, 64) + "..." });
       return ctBytes;
     } catch (err: any) {
       log("Encryption error:", err.message);
@@ -142,7 +151,7 @@ export class FhishClient {
   async submitVote(ciphertext: Uint8Array, vote: 'yes' | 'no'): Promise<VoteResult> {
     const hexCiphertext = this.bytesToHex(ciphertext);
     
-    log("Submitting vote to gateway:", vote, "ciphertext size:", ciphertext.length);
+    netEvent(`Submitting vote to gateway: ${vote}`, { ciphertext_size: ciphertext.length });
     
     const response = await fetch(`${this.gatewayUrl}/submit-vote`, {
       method: 'POST',
@@ -155,11 +164,12 @@ export class FhishClient {
 
     if (!response.ok) {
       const error = await response.text();
+      netEvent("Gateway submission failed", { status: response.status, error });
       throw new Error(`Gateway submission failed: ${response.status} — ${error}`);
     }
 
     const result = await response.json() as VoteResult;
-    log("Vote submitted:", result);
+    netEvent("Vote accepted by gateway", result);
     
     log("Verifying local decryption...");
     try {

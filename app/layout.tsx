@@ -1,7 +1,7 @@
 import { DM_Sans } from 'next/font/google';
 import './globals.css';
 import { ClientProviders } from './ClientProviders';
-import { DebugPanel } from '../components/DebugPanel';
+import { FHEConsole } from '../components/FHEConsole';
 
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' });
 
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${dmSans.variable} min-h-screen`}>
         <ClientProviders>
           {children}
-          <DebugPanel />
+          <FHEConsole />
         </ClientProviders>
       </body>
     </html>
