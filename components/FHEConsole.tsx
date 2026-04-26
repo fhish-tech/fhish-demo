@@ -10,11 +10,7 @@ export const FHEConsole = () => {
   const { logs, isOpen, toggleOpen, clearLogs } = useFHELogStore()
   const scrollRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = 0
-    }
-  }, [logs])
+  // Auto-scroll removed as per user request to allow manual reading
 
   return (
     <>
