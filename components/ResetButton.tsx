@@ -17,8 +17,7 @@ export function ResetButton() {
     try {
       // 1. Reset Gateway
       console.log("[Reset] Resetting gateway tally...");
-      const gatewayUrl = process.env.NEXT_PUBLIC_FHISH_GATEWAY_URL || "http://localhost:8080";
-      const gatewayRes = await fetch(`${gatewayUrl}/reset-tally`, {
+      const gatewayRes = await fetch("/gateway-proxy/reset-tally", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
