@@ -192,9 +192,9 @@ export function VoteButton({ proposalId, vote, label, className }: {
             href={`https://sepolia.etherscan.io/tx/${txHash}`}
             target="_blank"
             rel="noreferrer"
-            className="underline"
+            className="underline break-all"
           >
-            {txHash.slice(0, 8)}...
+            {txHash}
           </a>
         </p>
       )}
