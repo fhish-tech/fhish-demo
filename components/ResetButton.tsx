@@ -21,7 +21,7 @@ export function ResetButton() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-admin-api-key": "" // Default empty for local dev
+          "x-fhish-relayer-secret": process.env.NEXT_PUBLIC_FHISH_RELAYER_SECRET || ""
         }
       });
       
