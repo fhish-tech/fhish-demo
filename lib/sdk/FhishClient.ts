@@ -185,15 +185,12 @@ export class FhishClient {
   }
 
   async getTallyStatus(): Promise<{ yesVotes: number; noVotes: number; votingOpen: boolean }> {
-    log("Fetching tally status from gateway...");
-    
     const response = await fetch(`${this.gatewayUrl}/tally-status`);
     if (!response.ok) {
       throw new Error(`Gateway /tally-status failed: ${response.status}`);
     }
 
     const result = await response.json();
-    log("Tally status received", { ...result, yesVotes: "[ENCRYPTED]", noVotes: "[ENCRYPTED]" });
     return result;
   }
 
